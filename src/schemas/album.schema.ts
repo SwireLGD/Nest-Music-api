@@ -7,7 +7,18 @@ export class Album {
     @Prop({ required: true })
     title: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Artist.name, required: true })
+    @Prop({ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: Artist.name, 
+        required: true, 
+        validate: {
+            validator: async function (id: Types.ObjectId) {
+                const artist = await this.model('Artist').findById(id);
+                return Boolean(artist);
+            },
+            message: 'Artist does not exist',
+        },
+    })
     artist: mongoose.Schema.Types.ObjectId;
 
     @Prop({ required: true })
