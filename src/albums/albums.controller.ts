@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Album, AlbumDocument } from 'src/schemas/album.schema';
@@ -13,8 +13,9 @@ export class AlbumsController {
     ) {}
 
     @Get()
-    async getAll() {
-        return await this.albumModel.find();
+    async getAll(@Query('artistId') artistId: string) {
+        const filter = artistId ? { artist: artistId } : {};
+        return await this.albumModel.find(filter).populate('artist');
     }
 
     @Get(':id')
@@ -34,7 +35,7 @@ export class AlbumsController {
             artist: albumDto.artist,
             issueDate: albumDto.issueDate,
             isPublished: albumDto.isPublished,
-            image: file ? '/images' + file.filename : null,
+            image: file ? '/images/' + file.filename : null,
         });
 
         return await album.save();

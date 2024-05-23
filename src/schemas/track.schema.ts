@@ -1,14 +1,14 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import mongoose, { Types } from "mongoose";
 import { Album } from "./album.schema";
-import mongoose from "mongoose";
 
 @Schema()
 export class Track {
     @Prop({ required: true })
     title: string;
 
-    @Prop({ ref: typeof Album, required: true })
-    album: mongoose.Schema.Types.ObjectId
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Album.name, required: true })
+    album: mongoose.Schema.Types.ObjectId;
 
     @Prop()
     duration: number;

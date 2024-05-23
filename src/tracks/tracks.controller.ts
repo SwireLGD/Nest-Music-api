@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Track, TrackDocument } from 'src/schemas/track.schema';
@@ -12,8 +12,9 @@ export class TracksController {
     ) {}
 
     @Get()
-    async getAll() {
-        return await this.trackModel.find();
+    async getAll(@Query('albumId') albumId: string) {
+        const filter = albumId ? { album: albumId } : {};
+        return await this.trackModel.find(filter).populate('album');
     }
 
     @Post()

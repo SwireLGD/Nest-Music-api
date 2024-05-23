@@ -33,7 +33,7 @@ export class ArtistsController {
             name: artistDto.name,
             info: artistDto.info,
             isPublished: artistDto.isPublished,
-            image: file ? '/images' + file.filename : null,
+            image: file ? '/images/' + file.filename : null,
         });
 
         return await artist.save();
