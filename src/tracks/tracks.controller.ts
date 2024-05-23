@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Query } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Track, TrackDocument } from 'src/schemas/track.schema';
@@ -28,5 +28,14 @@ export class TracksController {
     });
 
     return await track.save();
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const result = await this.trackModel.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      throw new NotFoundException('Something went wrong, could not delete the track or it does not exist')
+    }
+    return { message: 'Track deleted successesfully' };
   }
 }

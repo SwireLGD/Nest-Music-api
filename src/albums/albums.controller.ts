@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  NotFoundException,
   Param,
   Post,
   Query,
@@ -47,5 +49,14 @@ export class AlbumsController {
     });
 
     return await album.save();
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const result = await this.albumModel.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      throw new NotFoundException('Something went wrong, could not delete the album or it does not exist')
+    }
+    return { message: 'Album deleted successesfully' };
   }
 }

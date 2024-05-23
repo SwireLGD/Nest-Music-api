@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  NotFoundException,
   Param,
   Post,
   UploadedFile,
@@ -44,5 +46,14 @@ export class ArtistsController {
     });
 
     return await artist.save();
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const result = await this.artistModel.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      throw new NotFoundException('Something went wrong, could not delete the track or it does not exist')
+    }
+    return { message: 'Track deleted successesfully' };
   }
 }
