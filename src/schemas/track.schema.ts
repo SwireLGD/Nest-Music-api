@@ -11,13 +11,13 @@ export class Track {
     album: mongoose.Schema.Types.ObjectId
 
     @Prop()
-    duration: number
+    duration: number;
 
     @Prop({ required: true })
-    number: number
+    number: number;
 
     @Prop({ default: false })
-    isPublished: boolean
+    isPublished: boolean;
 }
 
 export type TrackDocument = Track & Document;

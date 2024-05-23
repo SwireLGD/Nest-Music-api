@@ -6,10 +6,13 @@ export class Artist {
     name: string;
 
     @Prop()
-    info: string
+    info: string;
 
     @Prop({ required: true })
     isPublished: string;
+
+    @Prop()
+    image: string | null;
 }
 
 export type ArtistDocument = Artist & Document;

@@ -6,13 +6,16 @@ export class Album {
     title: string;
 
     @Prop({ required: true })
-    artist: string
+    artist: string;
 
     @Prop({ required: true })
-    issueDate: number
+    issueDate: number;
 
     @Prop({ default: false })
-    isPublished: boolean
+    isPublished: boolean;
+
+    @Prop()
+    image: string | null;
 }
 
 export type AlbumDocument = Album & Document;

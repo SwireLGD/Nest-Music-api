@@ -3,4 +3,5 @@ export class CreateAlbumDto {
     artist: string;
     issueDate: number;
     isPublished: boolean;
+    image: string | null;
 }
