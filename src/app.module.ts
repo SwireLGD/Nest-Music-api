@@ -15,10 +15,15 @@ import { Artist, ArtistSchema } from './schemas/artist.schema';
     MongooseModule.forFeature([
       { name: Album.name, schema: AlbumSchema },
       { name: Track.name, schema: TrackSchema },
-      { name: Artist.name, schema: ArtistSchema},
+      { name: Artist.name, schema: ArtistSchema },
     ]),
   ],
-  controllers: [AppController, ArtistsController, TracksController, AlbumsController],
+  controllers: [
+    AppController,
+    ArtistsController,
+    TracksController,
+    AlbumsController,
+  ],
   providers: [AppService],
 })
 export class AppModule {}

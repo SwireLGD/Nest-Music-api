@@ -6,27 +6,27 @@ import { CreateTrackDto } from './create-track.dto';
 
 @Controller('tracks')
 export class TracksController {
-    constructor (
-        @InjectModel(Track.name)
-        private trackModel: Model<TrackDocument>
-    ) {}
+  constructor(
+    @InjectModel(Track.name)
+    private trackModel: Model<TrackDocument>,
+  ) {}
 
-    @Get()
-    async getAll(@Query('albumId') albumId: string) {
-        const filter = albumId ? { album: albumId } : {};
-        return await this.trackModel.find(filter).populate('album');
-    }
+  @Get()
+  async getAll(@Query('albumId') albumId: string) {
+    const filter = albumId ? { album: albumId } : {};
+    return await this.trackModel.find(filter).populate('album');
+  }
 
-    @Post()
-    async create(@Body() trackDto: CreateTrackDto) {
-        const track = new this.trackModel({
-            title: trackDto.title,
-            album: trackDto.album,
-            duration: trackDto.duration,
-            number: trackDto.number,
-            isPublished: trackDto.isPublished,
-        });
+  @Post()
+  async create(@Body() trackDto: CreateTrackDto) {
+    const track = new this.trackModel({
+      title: trackDto.title,
+      album: trackDto.album,
+      duration: trackDto.duration,
+      number: trackDto.number,
+      isPublished: trackDto.isPublished,
+    });
 
-        return await track.save();
-    }
+    return await track.save();
+  }
 }
