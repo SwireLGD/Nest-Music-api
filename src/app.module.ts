@@ -9,6 +9,10 @@ import { AlbumsController } from './albums/albums.controller';
 import { Track, TrackSchema } from './schemas/track.schema';
 import { Artist, ArtistSchema } from './schemas/artist.schema';
 import { User, UserSchema } from './schemas/user.schema';
+import { UsersController } from './users/users.controller';
+import { AuthService } from './auth/auth.service';
+import { LocalStrategy } from './auth/local.strategy';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -19,13 +23,15 @@ import { User, UserSchema } from './schemas/user.schema';
       { name: Artist.name, schema: ArtistSchema },
       { name: User.name, schema: UserSchema },
     ]),
+    PassportModule,
   ],
   controllers: [
     AppController,
     ArtistsController,
     TracksController,
     AlbumsController,
+    UsersController,
   ],
-  providers: [AppService],
+  providers: [AppService, AuthService, LocalStrategy],
 })
 export class AppModule {}

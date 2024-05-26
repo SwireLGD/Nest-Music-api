@@ -4,6 +4,11 @@ import * as bcrypt from 'bcrypt';
 
 const SALT_WORK_FACTOR = 10;
 
+export interface UserMethods {
+    generateToken(): void;
+    checkPassword(password: string): Promise<boolean>; 
+}
+
 @Schema()
 export class User {
     @Prop({
@@ -20,7 +25,7 @@ export class User {
     displayName: string;
 }
 
-export type UserDocument = User & Document;
+export type UserDocument = User & Document & UserMethods;
 export const UserSchema = SchemaFactory.createForClass(User);
 
 UserSchema.methods.generateToken = function () {
