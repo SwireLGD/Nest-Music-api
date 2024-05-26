@@ -53,7 +53,9 @@ export class ArtistsController {
   async delete(@Param('id') id: string) {
     const result = await this.artistModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {
-      throw new NotFoundException('Something went wrong, could not delete the track or it does not exist')
+      throw new NotFoundException(
+        'Something went wrong, could not delete the track or it does not exist',
+      );
     }
     return { message: 'Track deleted successesfully' };
   }

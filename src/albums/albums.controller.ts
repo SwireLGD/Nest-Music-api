@@ -56,7 +56,9 @@ export class AlbumsController {
   async delete(@Param('id') id: string) {
     const result = await this.albumModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {
-      throw new NotFoundException('Something went wrong, could not delete the album or it does not exist')
+      throw new NotFoundException(
+        'Something went wrong, could not delete the album or it does not exist',
+      );
     }
     return { message: 'Album deleted successesfully' };
   }
