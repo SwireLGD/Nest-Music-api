@@ -7,6 +7,7 @@ const SALT_WORK_FACTOR = 10;
 export interface UserMethods {
     generateToken(): void;
     checkPassword(password: string): Promise<boolean>; 
+    deleteToken(): void;
 }
 
 @Schema()
@@ -37,6 +38,10 @@ UserSchema.methods.generateToken = function () {
 UserSchema.methods.checkPassword = function (password: string): Promise<boolean> {
     return  bcrypt.compare(password, this.password);
 };
+
+UserSchema.methods.deleteToken = function() {
+    this.token = null;
+}
 
 UserSchema.pre('save', async function() {
     if (!this.isModified('password')) return;
