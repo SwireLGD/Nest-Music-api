@@ -23,6 +23,8 @@ export class User {
     token: string;
     @Prop()
     displayName: string;
+    @Prop({ required: true, enum: ['user', 'admin'], default: 'user' })
+    role: string;
 }
 
 export type UserDocument = User & Document & UserMethods;
