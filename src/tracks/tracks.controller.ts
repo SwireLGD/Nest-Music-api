@@ -44,9 +44,10 @@ export class TracksController {
     return await track.save();
   }
 
-  @Delete(':id')
+  @UseGuards(TokenAuthGuard)
   @UseGuards(RolesGuard)
   @Roles('admin')
+  @Delete(':id')
   async delete(@Param('id') id: string) {
     const result = await this.trackModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {

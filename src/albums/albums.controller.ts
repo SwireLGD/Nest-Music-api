@@ -57,9 +57,10 @@ export class AlbumsController {
     return await album.save();
   }
 
-  @Delete(':id')
+  @UseGuards(TokenAuthGuard)
   @UseGuards(RolesGuard)
   @Roles('admin')
+  @Delete(':id')
   async delete(@Param('id') id: string) {
     const result = await this.albumModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {

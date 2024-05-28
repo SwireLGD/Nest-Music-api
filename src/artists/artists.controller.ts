@@ -54,9 +54,10 @@ export class ArtistsController {
     return await artist.save();
   }
 
-  @Delete(':id')
+  @UseGuards(TokenAuthGuard)
   @UseGuards(RolesGuard)
   @Roles('admin')
+  @Delete(':id')
   async delete(@Param('id') id: string) {
     const result = await this.artistModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {
